@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Todo App</title>
+</head>
+<body>
+  <h1>Todo List</h1>
+  <form id="newTodoForm">
+    <input type="text" id="name" placeholder="Name" required>
+    <input type="date" id="dueDate" required>
+    <select id="category">
+      <option value="Work">Work</option>
+      <option value="Personal">Personal</option>
+      <!-- Add more categories here -->
+    </select>
+    <select id="label">
+      <option value="Red">Red</option>
+      <option value="Green">Green</option>
+      <!-- Add more labels here -->
+    </select>
+    <button type="submit">Add Todo</button>
+  </form>
+
+  <ul id="todoList">
+    <!-- Todos will be listed here -->
+  </ul>
+
+  <script src="../app.js"></script>
+</body>
+</html>
