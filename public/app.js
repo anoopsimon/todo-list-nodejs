@@ -15,9 +15,8 @@ document.getElementById('newTodoForm').addEventListener('submit', function(e) {
   })
   .then(response => response.json())
   .then(data => {
-    addTodoToUI(data); // Update the UI with the new todo
+    performAddTodo(data); // Update the UI with the new todo
     console.log('Success:', data);
-    showToast('Todo added successfully');
   })
   .catch((error) => {
     console.error('Error:', error);
@@ -90,6 +89,76 @@ function showToast(message) {
   setTimeout(() => {
       toastContainer.removeChild(toast);
   }, 3000); // 3 seconds for fade out
+}
+
+function showLoader() {
+  document.getElementById('loader').style.display = 'flex';
+}
+
+function hideLoader() {
+  document.getElementById('loader').style.display = 'none';
+}
+
+function performAddTodo() {
+  showLoader();
+  const startTime = new Date().getTime();
+
+  // Extract ToDo item details from form inputs
+  const name = document.getElementById('name').value;
+  const dueDate = document.getElementById('dueDate').value;
+  const category = document.getElementById('category').value;
+  const label = document.getElementById('label').value;
+
+  fetch('/todos', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, dueDate, category, label }),
+  })
+  .then(response => response.json())
+  .then(data => {
+      addTodoToUI(data); // Add the new todo to the UI
+      showToast('Todo added successfully');
+
+      const elapsedTime = new Date().getTime() - startTime;
+      const remainingTime = Math.max(500 - elapsedTime, 0);
+      setTimeout(hideLoader, remainingTime);
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      hideLoader();
+  });
+}
+
+function deleteTodo(todoId, rowId) {
+  performDeleteTodo(todoId, rowId);
+}
+
+function performDeleteTodo(todoId, rowId) {
+  showLoader();
+  const startTime = new Date().getTime();
+
+  fetch(`/todos/${todoId}`, {
+      method: 'DELETE'
+  })
+  .then(response => response.json())
+  .then(data => {
+      // Remove the todo item from the UI
+      const rowToRemove = document.getElementById(rowId);
+      if (rowToRemove) {
+          rowToRemove.remove();
+      }
+      showToast('Todo deleted successfully');
+
+      const elapsedTime = new Date().getTime() - startTime;
+      const remainingTime = Math.max(500 - elapsedTime, 0);
+      setTimeout(hideLoader, remainingTime);
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      hideLoader();
+  });
 }
 
 
