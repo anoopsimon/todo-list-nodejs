@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Todo App</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
   <h1>Todo List</h1>
@@ -21,10 +22,22 @@
     <button type="submit">Add Todo</button>
   </form>
 
-  <ul id="todoList">
-    <!-- Todos will be listed here -->
-  </ul>
+  <table id="todoTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Due Date</th>
+            <th>Category</th>
+            <th>Label</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="todoList">
+        <!-- Todo items will be added here -->
+    </tbody>
+</table>
 
-  <script src="../app.js"></script>
+
+  <script src="app.js"></script>
 </body>
 </html>
