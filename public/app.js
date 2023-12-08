@@ -119,6 +119,7 @@ function performAddTodo() {
   .then(response => response.json())
   .then(data => {
       addTodoToUI(data); // Add the new todo to the UI
+      updateTotalCount();
       showToast('Todo added successfully');
 
       const elapsedTime = new Date().getTime() - startTime;
@@ -149,6 +150,7 @@ function performDeleteTodo(todoId, rowId) {
       if (rowToRemove) {
           rowToRemove.remove();
       }
+      updateTotalCount();
       showToast('Todo deleted successfully');
 
       const elapsedTime = new Date().getTime() - startTime;
@@ -161,8 +163,22 @@ function performDeleteTodo(todoId, rowId) {
   });
 }
 
+function updateTotalCount() {
+  const totalCount = document.getElementById('todoList').rows.length;
+  document.getElementById('totalCount').textContent = totalCount;
+}
+
 
 // Call this function when the page loads
 loadAndDisplayTodos();
+
+window.onload = function() {
+  // Load ToDo items
+  // ...
+
+  // Update the total count
+  updateTotalCount();
+};
+
 
   

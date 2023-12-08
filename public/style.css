@@ -172,3 +172,10 @@ body {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+.todo-count {
+    margin-bottom: 10px; /* Reduced bottom margin */
+    text-align: center;
+    font-size: 1.2em;
+    color: #333;
+}
